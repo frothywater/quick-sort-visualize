@@ -15,7 +15,7 @@ export default function Button(props) {
       css={css`
         border: none;
         background: none;
-        padding: 14px 28px;
+        padding: 10px 10px;
         font-size: 16px;
         display: inline-block;
 

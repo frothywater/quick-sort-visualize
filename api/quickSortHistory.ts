@@ -1,11 +1,11 @@
 import { Entry, Frame } from './typings';
 
 export default function quickSortHistory(entries: Entry[]) {
-  const history: Frame[] = [{ entries: [...entries] }];
-
   let currPivotIndex: number | undefined;
   let currIntervalLeft: number | undefined;
   let currIntervalRight: number | undefined;
+
+  const history: Frame[] = [cloneEntries(entries)];
 
   function cloneEntries(entries: Entry[]): Frame {
     return {

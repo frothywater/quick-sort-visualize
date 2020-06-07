@@ -50,6 +50,9 @@ export default function BarBox({ frame }: { frame: Frame }) {
         `}
         />
       </FlipMove>
+      <div>
+        {frame.entries.map((entry) => entry.value.toPrecision(3)).join(',')}
+      </div>
     </div>
   );
 }
