@@ -1,24 +1,31 @@
 /**@jsx jsx */
 import { css, jsx } from '@emotion/core';
+import { Button, Slider, Typography } from '@material-ui/core';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import generateRandomNumbers from '../api/generateRandomNumbers';
-import { pink } from '../colors';
-import Button from '../components/Button';
 import Content from '../components/Content';
 
-const numberCount = 10;
-
 export default function Home() {
-  const [numbers, setNumbers] = useState<number[]>(() => {
-    const numbers = generateRandomNumbers(numberCount);
-    console.log(numbers);
-    return numbers;
-  });
+  const [count, setCount] = useState<number>(10);
+  const [numbers, setNumbers] = useState<number[]>(
+    generateRandomNumbers(count)
+  );
 
   function generate() {
-    setNumbers(generateRandomNumbers(numberCount));
+    setNumbers(generateRandomNumbers(count));
   }
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    value: number
+  ) => {
+    setCount(value);
+  };
+
+  useEffect(() => {
+    setNumbers(generateRandomNumbers(count));
+  }, [count]);
 
   return (
     <div>
@@ -27,14 +34,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1
+      <Typography
+        variant="h4"
         css={css`
-          margin-top: 100px;
+          padding-top: 100px;
           text-align: center;
         `}
       >
         Quick Sort Visualization
-      </h1>
+      </Typography>
 
       <div
         css={css`
@@ -45,7 +53,19 @@ export default function Home() {
       >
         <Content numbers={numbers} />
 
-        <Button color={pink} onClick={generate}>
+        <Slider
+          defaultValue={10}
+          valueLabelDisplay="auto"
+          step={1}
+          min={10}
+          max={20}
+          onChange={handleChange}
+          css={css`
+            max-width: 240px;
+          `}
+        />
+
+        <Button color="secondary" onClick={generate}>
           Generate numbers
         </Button>
       </div>

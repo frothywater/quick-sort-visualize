@@ -1,17 +1,25 @@
 import { css, Global } from '@emotion/core';
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
-class MyDocument extends Document {
+export default class MyDocument extends Document {
   render() {
     return (
-      <html lang="en">
+      <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
           <meta
             name="viewport"
             content="user-scalable=0, initial-scale=1, minimum-scale=1, width=device-width, height=device-height"
           />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
+            rel="stylesheet"
+          ></link>
         </Head>
         <Global
           styles={css`
@@ -22,19 +30,13 @@ class MyDocument extends Document {
               width: 100%;
               margin: 0;
             }
-
-            body {
-              font-family: 'Noto Sans', sans-serif;
-            }
           `}
         />
         <body>
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
-
-export default MyDocument;

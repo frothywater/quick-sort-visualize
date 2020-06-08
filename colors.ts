@@ -1,3 +1,3 @@
-export const blue = '#5dbad4';
+export const blue = '#21b7d9';
 export const grey = '#9e9e9e';
-export const pink = '#f5a2b4';
+export const pink = '#ff7a97';

@@ -1,6 +1,6 @@
 import { Entry, Frame } from './typings';
 
-export default function quickSortHistory(entries: Entry[]) {
+export default function quickSortHistory(entries: Entry[], random = false) {
   let currPivotIndex: number | undefined;
   let currIntervalLeft: number | undefined;
   let currIntervalRight: number | undefined;
@@ -26,19 +26,26 @@ export default function quickSortHistory(entries: Entry[]) {
 
   // Return index of the pivot.
   function partition(array: Entry[], left: number, right: number): number {
-    const pivotIndex = right;
+    const pivotIndex = random
+      ? Math.floor(left + (right - left) * Math.random())
+      : Math.floor((left + right) / 2);
+
     currPivotIndex = array[pivotIndex].index;
-    const pivotValue = array[pivotIndex].value;
-    let index = left - 1;
+    let pivot = array[pivotIndex].value;
 
-    for (let i = left; i < right; i++) {
-      if (array[i].value < pivotValue) swap(array, ++index, i);
+    let i = left;
+    let j = right;
+    while (true) {
+      while (array[i].value < pivot) i++;
+      while (array[j].value > pivot) j--;
+      if (i >= j) {
+        currPivotIndex = undefined;
+        return j;
+      }
+      swap(array, i, j);
+      i++;
+      j--;
     }
-
-    swap(array, index + 1, pivotIndex);
-    currPivotIndex = undefined;
-
-    return index + 1;
   }
 
   function quickSort(array: Entry[], left = 0, right = array.length - 1) {
@@ -51,7 +58,7 @@ export default function quickSortHistory(entries: Entry[]) {
       currIntervalLeft = undefined;
       currIntervalRight = undefined;
 
-      quickSort(array, left, pivotIndex - 1);
+      quickSort(array, left, pivotIndex);
       quickSort(array, pivotIndex + 1, right);
     }
   }

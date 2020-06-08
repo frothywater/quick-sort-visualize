@@ -4,8 +4,8 @@ import { blue, grey } from '../colors';
 
 export const maxHeight = 200;
 export const littleHeight = 12;
-export const barMargin = 5;
-export const barWidth = 18;
+export const barMargin = 4;
+export const barWidth = 16;
 const radius = 5;
 
 const container = css`
@@ -14,7 +14,7 @@ const container = css`
   justify-content: flex-end;
   height: ${maxHeight + littleHeight}px;
   width: ${barWidth}px;
-  padding: 0 ${barMargin}px;
+  margin: 0 ${barMargin}px;
 `;
 
 export default function Bar({ highlight = false, value }) {
